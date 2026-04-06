@@ -4,14 +4,15 @@
 This document provides a professional reference for the Zorvyn Finance Dashboard API.
 
 ## Live Documentation
-- Postman public docs: <add-public-docs-link>
-- Postman collection: <add-collection-link>
-- Swagger UI (secondary): http://localhost:8080/swagger-ui.html
-- OpenAPI JSON (secondary): http://localhost:8080/v3/api-docs
+- Postman Public Workspace: https://www.postman.com/adityas-team-6936/workspace/zorvyn
+- Swagger UI (Production): https://zorvyn-app-ok9mk.ondigitalocean.app/swagger-ui/index.html
+- Swagger UI (Local): http://localhost:8080/swagger-ui.html
+- Examiner-friendly API docs: https://www.postman.com/adityas-team-6936/workspace/zorvyn/collection/37493895-dc927e40-7aff-47dc-a99c-491157662338?action=share&creator=37493895
+- OpenAPI JSON: http://localhost:8080/v3/api-docs
 
 ## Base URL
 - Local: http://localhost:8080
-- Production: <add-production-base-url>
+- Production: https://zorvyn-app-ok9mk.ondigitalocean.app
 
 ## Authentication
 The API uses JWT Bearer tokens for protected routes.

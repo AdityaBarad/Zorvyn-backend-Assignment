@@ -1,29 +1,18 @@
 # Zorvyn — Finance Dashboard Backend
 
-## Overview
-Zorvyn is a role-based finance dashboard backend that helps individuals and small teams track income and expenses, review trends, and keep an auditable trail of financial activity. It provides secure authentication, fine-grained role permissions, and APIs for creating and analyzing records.
+## API Documentation
+- Postman Public Workspace: https://www.postman.com/adityas-team-6936/workspace/zorvyn
+- Swagger UI (Production): https://zorvyn-app-ok9mk.ondigitalocean.app/swagger-ui/index.html
+- Swagger UI (Local): http://localhost:8080/swagger-ui.html
+- API docs: https://www.postman.com/adityas-team-6936/workspace/zorvyn/collection/37493895-dc927e40-7aff-47dc-a99c-491157662338?action=share&creator=37493895
+- OpenAPI JSON: http://localhost:8080/v3/api-docs
+
+## Base URL
+- Local: http://localhost:8080
+- Production: https://zorvyn-app-ok9mk.ondigitalocean.app
 
 ## Architecture
-```
-Client
-  |
-  v
-Security Filter
-  |
-  v
-Controllers
-  |
-  v
-Services
-  |
-  v
-Repositories
-  |
-  v
-PostgreSQL
-
-Cross-cutting: AOP Logging, Audit Trail, Rate Limiting
-```
+![My Screenshot](./docs/img.png)
 
 ## Tech Stack
 | Technology       | Version | Purpose                        |
@@ -39,11 +28,24 @@ Cross-cutting: AOP Logging, Audit Trail, Rate Limiting
 | SpringDoc       | 2.8.3   | API documentation (Swagger)    |
 | Lombok          | latest  | Boilerplate reduction          |
 
-## Prerequisites
-- Java 21
-- Maven 3.8+
-- PostgreSQL 15+
-- Docker & Docker Compose (optional)
+## Features
+- JWT auth with access + refresh tokens and logout
+- Role-based access control: ADMIN, ANALYST, VIEWER
+- User management: create, update, deactivate, assign roles
+- User status: ACTIVE/INACTIVE
+- Financial records CRUD (income/expense)
+- Filtering by type/category/date range
+- Pagination + sorting on list endpoints
+- Dashboard summary totals and net balance
+- Category breakdown analytics
+- Monthly trends by year
+- Recent activity feed
+- Soft delete for users and records
+- Audit logging (async) for actions
+- Rate limiting with Bucket4j
+- Validation + standardized error responses
+- Swagger UI + OpenAPI docs
+- Postman collection + environment for testing
 
 ## Getting Started
 
@@ -59,12 +61,12 @@ psql -U postgres -c "CREATE DATABASE finance_dashboard;"
 ```
 
 ### 3. Environment variables
-| Variable     | Default                                         | Description        |
-|-------------|-------------------------------------------------|--------------------|
-| DB_URL      | jdbc:postgresql://localhost:5432/finance_dashboard | DB URL          |
-| DB_USERNAME | postgres                                        | DB username        |
-| DB_PASSWORD | postgres                                        | DB password        |
-| JWT_SECRET  | (see properties)                                | JWT signing secret |
+| Variable              | Default                                         | Description        |
+|-----------------------|-------------------------------------------------|--------------------|
+| DB_URL                | jdbc:postgresql://localhost:5432/finance_dashboard | DB URL          |
+| DB_USERNAME           | postgres                                        | DB username        |
+| DB_PASSWORD           | postgres                                        | DB password        |
+| JWT_SECRET (Optional) | (see properties)                                | JWT signing secret |
 
 ### 4. Run with Maven
 ```
@@ -72,16 +74,22 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-### 5. Run with Docker Compose
+### 5. Run with Docker Compose (Optional)
 ```
 docker-compose up --build
 ```
+## Default Admin Credentials
+| Field    | Value                |
+|---------|----------------------|
+| Email   | admin@finance.com    |
+| Password| Admin@1234           |
 
-## API Documentation
-- Swagger UI: http://localhost:8080/swagger-ui.html
-- OpenAPI JSON: http://localhost:8080/v3/api-docs
-- Health check: http://localhost:8080/actuator/health
-- Examiner-friendly API docs: docs/API_DOCS.md
+## Authentication Flow
+1. POST /api/v1/auth/login with email + password
+2. Receive accessToken and refreshToken
+3. Add to all requests: Authorization: Bearer <accessToken>
+4. Refresh via POST /api/v1/auth/refresh with X-Refresh-Token header
+5. Logout via POST /api/v1/auth/logout
 
 ## Postman Public API Docs
 
@@ -106,12 +114,6 @@ docker-compose up --build
 #### 4. Refresh Token
 - Send `Auth > Refresh`.
 - The request uses `X-Refresh-Token: {{refreshToken}}`.
-
-### Publish Public Postman Docs
-1. In Postman, open the collection and click **Publish Docs**.
-2. Choose **Public** visibility.
-3. Copy the public docs URL and paste it above.
-4. Use **Share** to get the public collection link and paste it above.
 
 ### Collection Structure
 - Auth
@@ -151,17 +153,6 @@ docker-compose up --build
 }
 ```
 
-### Notes
-- Keep Swagger enabled as a secondary reference.
-- If publishing publicly, remove real credentials and keep examples only.
-
-## Authentication Flow
-1. POST /api/v1/auth/login with email + password
-2. Receive accessToken and refreshToken
-3. Add to all requests: Authorization: Bearer <accessToken>
-4. Refresh via POST /api/v1/auth/refresh with X-Refresh-Token header
-5. Logout via POST /api/v1/auth/logout
-
 ## Role Permissions Matrix
 | Endpoint                   | VIEWER | ANALYST | ADMIN |
 |---------------------------|--------|---------|-------|
@@ -181,11 +172,6 @@ docker-compose up --build
 | PUT /users/{id}            |   ✗    |    ✗    |   ✓   |
 | DELETE /users/{id}         |   ✗    |    ✗    |   ✓   |
 
-## Default Admin Credentials
-| Field    | Value                |
-|---------|----------------------|
-| Email   | admin@finance.com    |
-| Password| Admin@1234           |
 
 ## Sample curl Commands
 

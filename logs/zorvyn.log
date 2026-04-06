@@ -1879,3 +1879,9 @@ Caused by: org.postgresql.util.PSQLException: ERROR: duplicate key value violate
 2026-04-05T18:41:06.074+05:30 DEBUG 27936 --- [http-nio-8080-exec-6] c.example.zorvyn.aspect.LoggingAspect    : [SERVICE] Exiting AuthServiceImpl.login — took 721ms
 2026-04-05T18:41:06.130+05:30 DEBUG 27936 --- [task-20] c.e.z.service.impl.AuditServiceImpl      : Audit logged: action=LOGIN, entity=USER, id=7
 2026-04-05T18:41:06.130+05:30 DEBUG 27936 --- [task-20] c.example.zorvyn.aspect.LoggingAspect    : [SERVICE] Exiting AuditServiceImpl.log — took 56ms
+2026-04-05T23:05:14.854+05:30  WARN 27936 --- [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h25m48s128ms18µs900ns).
+2026-04-05T23:05:46.168+05:30  INFO 27936 --- [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-05T23:05:46.186+05:30  INFO 27936 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-04-05T23:05:46.208+05:30  INFO 27936 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-05T23:05:46.217+05:30  INFO 27936 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-05T23:05:46.220+05:30  INFO 27936 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
