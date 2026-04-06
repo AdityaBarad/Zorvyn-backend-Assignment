@@ -51,8 +51,8 @@
 
 ### 1. Clone the repository
 ```
-git clone <repo-url>
-cd zorvyn
+git clone https://github.com/AdityaBarad/Zorvyn-backend-Assignment.git
+cd Zorvyn-backend-Assignment
 ```
 
 ### 2. Create the database
@@ -60,7 +60,7 @@ cd zorvyn
 psql -U postgres -c "CREATE DATABASE finance_dashboard;"
 ```
 
-### 3. Environment variables
+### 3. Add Environment variables in application.properties or as system environment variables
 | Variable              | Default                                         | Description        |
 |-----------------------|-------------------------------------------------|--------------------|
 | DB_URL                | jdbc:postgresql://localhost:5432/finance_dashboard | DB URL          |
@@ -70,14 +70,11 @@ psql -U postgres -c "CREATE DATABASE finance_dashboard;"
 
 ### 4. Run with Maven
 ```
-mvn clean install
-mvn spring-boot:run
+./mvnw.cmd spring-boot:run
 ```
 
-### 5. Run with Docker Compose (Optional)
-```
-docker-compose up --build
-```
+### Run with Docker Compose (Optional)
+
 ## Default Admin Credentials
 | Field    | Value                |
 |---------|----------------------|
